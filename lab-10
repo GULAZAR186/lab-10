@@ -1,0 +1,26 @@
+import math
+
+# Funksiya
+def f(x):
+    return math.sin(math.sqrt(x)) - math.cos(math.sqrt(x)) + 2 * x**0.25
+
+# Törəmə
+def df(x):
+    if x == 0:
+        return float('inf')  # sıfıra bölünmənin qarşısını almaq üçün
+    return (1 / (2 * math.sqrt(x))) * (math.cos(math.sqrt(x)) + math.sin(math.sqrt(x))) + (1 / 2) * x**(-0.75)
+
+# Başlanğıc təxmini (interval [0.0, 0.2])
+x0 = 0.1
+tol = 1e-6
+max_iter = 100
+
+for i in range(max_iter):
+    fx = f(x0)
+    dfx = df(x0)
+    x1 = x0 - fx / dfx
+    if abs(x1 - x0) < tol:
+        break
+    x0 = x1
+
+print(f"Nyuton üsulu ilə həll: x = {x1}, iterasiya sayı: {i+1}")
